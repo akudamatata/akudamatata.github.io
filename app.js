@@ -470,7 +470,24 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+// 7. Name click toggle between English and Chinese
+function initNameToggle() {
+    const nameEl = document.getElementById('profile-name');
+    if (!nameEl) return;
+    let isChinese = false;
+    nameEl.addEventListener('click', () => {
+        isChinese = !isChinese;
+        nameEl.style.transition = 'opacity 0.2s';
+        nameEl.style.opacity = '0';
+        setTimeout(() => {
+            nameEl.textContent = isChinese ? '梦遗少年' : 'Wet Dream Boy';
+            nameEl.style.opacity = '1';
+        }, 150);
+    });
+}
+
 // Initialize
 renderProjects();
 updateGitHubStats();
 initMiniPlayer();
+initNameToggle();
