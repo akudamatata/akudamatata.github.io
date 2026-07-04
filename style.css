@@ -143,6 +143,19 @@ header {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    overflow: hidden;
+}
+
+/* Subtle Gemini aurora shimmer at bottom of header */
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gemini-gradient);
+    opacity: 0.4;
 }
 
 /* Circular avatar with glowing effect on hover */
