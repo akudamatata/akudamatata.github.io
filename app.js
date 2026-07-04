@@ -365,6 +365,10 @@ function initMiniPlayer() {
 
     if (!toggleBtn) return;
 
+    // Load initial track immediately for autoplay
+    audio.src = featuredTrack.localUrl;
+    isLoaded = true;
+
     function updatePlayerUI() {
         trackName.innerHTML = featuredTrack.name;
         artistName.innerHTML = featuredTrack.artist;
@@ -378,12 +382,6 @@ function initMiniPlayer() {
     }
 
     toggleBtn.addEventListener('click', () => {
-        // Only load the audio src on the very first click
-        if (!isLoaded) {
-            audio.src = featuredTrack.localUrl;
-            isLoaded = true;
-        }
-
         if (isPlaying) {
             audio.pause();
             isPlaying = false;
@@ -395,15 +393,13 @@ function initMiniPlayer() {
                 updatePlayerUI();
             }).catch(e => {
                 console.warn("Local audio play failed, falling back to remote URL:", e);
-                // If local file is missing, automatically redirect to remote 163 stream
+                // Fallback to remote stream
                 audio.src = featuredTrack.remoteUrl;
                 audio.play().then(() => {
                     isPlaying = true;
                     updatePlayerUI();
                 }).catch(err => {
                     console.error("All audio play attempts failed:", err);
-                    // Reset loader state so it can retry
-                    isLoaded = false;
                     isPlaying = false;
                     updatePlayerUI();
                 });
@@ -416,6 +412,47 @@ function initMiniPlayer() {
         audio.currentTime = 0;
         audio.play().catch(e => console.warn(e));
     });
+
+    // Robust Autoplay handler compatible with browser security models
+    function attemptAutoplay() {
+        // 1. Direct play attempt (works if MEI is high or policy allows)
+        audio.play().then(() => {
+            isPlaying = true;
+            updatePlayerUI();
+        }).catch(err => {
+            console.warn("Direct autoplay blocked. Awaiting user interaction...");
+            
+            // 2. Setup interaction trigger fallback
+            const playOnFirstInteraction = () => {
+                if (!isPlaying) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        updatePlayerUI();
+                        cleanupListeners();
+                    }).catch(e => {
+                        console.warn("Autoplay interaction fallback failed, falling back to remote link:", e);
+                        audio.src = featuredTrack.remoteUrl;
+                        audio.play().then(() => {
+                            isPlaying = true;
+                            updatePlayerUI();
+                            cleanupListeners();
+                        }).catch(ex => console.error("All fallback plays failed:", ex));
+                    });
+                }
+            };
+
+            const triggers = ['click', 'keydown', 'mousedown', 'touchstart', 'scroll'];
+            
+            function cleanupListeners() {
+                triggers.forEach(t => document.removeEventListener(t, playOnFirstInteraction));
+            }
+
+            triggers.forEach(t => document.addEventListener(t, playOnFirstInteraction, { once: true }));
+        });
+    }
+
+    // Trigger autoplay sequence on load
+    attemptAutoplay();
 }
 
 // 6. Background Mouse Interaction with Aurora
