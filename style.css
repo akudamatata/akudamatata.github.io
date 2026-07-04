@@ -1,0 +1,864 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+:root {
+    --bg-color: #030303;
+    --card-bg: #09090b;
+    --card-bg-hover: #121215;
+    
+    /* Gemini Aurora Gradient Colors */
+    --aurora-1: rgba(66, 133, 244, 0.18);  /* Blue */
+    --aurora-2: rgba(155, 81, 224, 0.18); /* Purple */
+    --aurora-3: rgba(224, 81, 168, 0.12); /* Pink */
+    --aurora-4: rgba(242, 153, 74, 0.1);   /* Orange */
+    
+    /* Gemini Hover Flow Gradient */
+    --gemini-gradient: linear-gradient(135deg, #4285f4, #9b51e0, #e051a8, #f2994a);
+    
+    /* X.AI Hairline Borders */
+    --border-color: #1f1f23;
+    --border-hover: #3f3f46;
+    
+    /* Text Colors */
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #52525b;
+    --terminal-green: #38bdf8; /* Soft electric blue/cyan instead of harsh green, feels more modern */
+    
+    /* Fonts */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, Consolas, monospace;
+}
+
+/* Custom premium slim scrollbars */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e1e24;
+    border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-hover);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Gemini Dynamic Aurora Background --- */
+.aurora-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    filter: blur(100px);
+    opacity: 0.85;
+}
+
+.aurora-glow {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    animation: float 25s infinite alternate ease-in-out;
+}
+
+.aurora-1 {
+    top: -10%;
+    left: -10%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, var(--aurora-1) 0%, transparent 70%);
+}
+
+.aurora-2 {
+    bottom: -15%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, var(--aurora-2) 0%, transparent 70%);
+    animation-delay: -5s;
+    animation-duration: 30s;
+}
+
+.aurora-3 {
+    top: 40%;
+    left: 50%;
+    width: 45vw;
+    height: 45vw;
+    background: radial-gradient(circle, var(--aurora-3) 0%, transparent 75%);
+    animation-delay: -10s;
+    animation-duration: 22s;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate(5%, 8%) scale(1.1) rotate(90deg);
+    }
+    100% {
+        transform: translate(-3%, -5%) scale(0.9) rotate(180deg);
+    }
+}
+
+/* --- Main Layout Grid --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Header Section */
+header {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header-left h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: var(--gemini-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.header-left p {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.header-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.status-badge {
+    background-color: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    color: var(--terminal-green);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--terminal-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--terminal-green);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* --- X.AI Style Grid Layout --- */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1px; /* Creates hairline border effect when bg is border-color */
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+}
+
+.grid-span-8 {
+    grid-column: span 8;
+}
+
+.grid-span-4 {
+    grid-column: span 4;
+}
+
+.grid-span-6 {
+    grid-column: span 6;
+}
+
+.grid-span-12 {
+    grid-column: span 12;
+}
+
+/* --- Base Grid Item Panel --- */
+.panel {
+    background-color: var(--card-bg);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 12px;
+}
+
+.panel-title {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* --- Terminal Panel (Gemini Shell) --- */
+.terminal-panel {
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.dot-red { background-color: #ef4444; }
+.dot-yellow { background-color: #eab308; }
+.dot-green { background-color: #22c55e; }
+
+.terminal-body {
+    flex-grow: 1;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    overflow-y: auto;
+    padding-top: 15px;
+    line-height: 1.6;
+}
+
+.terminal-output {
+    white-space: pre-wrap;
+    margin-bottom: 12px;
+}
+
+.terminal-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-prompt {
+    color: var(--terminal-green);
+}
+
+.terminal-input-wrapper {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    width: 100%;
+    caret-color: var(--terminal-green);
+}
+
+/* --- Portfolio Card Grid (X.AI + Gemini Border Hover) --- */
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.projects-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+}
+
+/* --- Featured Big Card (Solara C-position) --- */
+.featured-wrapper {
+    position: relative;
+    background-color: var(--border-color);
+    padding: 1px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.featured-content {
+    padding: 36px;
+    background-color: var(--card-bg);
+    display: flex;
+    gap: 40px;
+    transition: background-color 0.3s;
+}
+
+.featured-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gemini-gradient);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.featured-wrapper:hover::before {
+    opacity: 1;
+}
+
+.featured-wrapper:hover .featured-content {
+    background-color: var(--card-bg-hover);
+}
+
+.featured-wrapper:hover {
+    box-shadow: 0 15px 40px -15px rgba(155, 81, 224, 0.3);
+    z-index: 2;
+}
+
+.featured-left {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.featured-right {
+    flex: 2;
+    border-left: 1px dashed var(--border-color);
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* Special styling for Solara C-position elements */
+.featured-title-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.featured-badge {
+    background: var(--gemini-gradient);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 10px rgba(155, 81, 224, 0.25);
+}
+
+.featured-slogan {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    background: linear-gradient(135deg, #a1a1aa 0%, #ffffff 50%, #f4f4f5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 8px;
+}
+
+/* Premium Interactive Mini-Player widget */
+.mini-player-widget {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.vinyl-disc {
+    width: 64px;
+    height: 64px;
+    background: radial-gradient(circle, #050505 15%, #27272a 16%, #18181b 35%, #050505 36%, #3f3f46 65%, #09090b 66%, #18181b 100%);
+    border-radius: 50%;
+    border: 2px solid #52525b;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+}
+
+.vinyl-center {
+    width: 14px;
+    height: 14px;
+    background: var(--gemini-gradient);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(155, 81, 224, 0.6);
+}
+
+/* Spin animation triggered when playing music */
+.vinyl-disc.spinning {
+    animation: spin 5s linear infinite;
+    border-color: #9b51e0;
+    box-shadow: 0 0 15px rgba(155, 81, 224, 0.5);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.player-info-area {
+    flex-grow: 1;
+}
+
+.track-name {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.artist-name {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.player-controls {
+    display: flex;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.player-controls i:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Featured Large GitHub Stats Board */
+.featured-stats-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    letter-spacing: -0.02em;
+}
+
+.featured-wrapper:hover .stat-value {
+    background: var(--gemini-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+
+.featured-commit-status {
+    border-top: 1px dashed var(--border-color);
+    padding-top: 18px;
+}
+
+.featured-commit-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.featured-commit-log {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+}
+
+.featured-commit-log i {
+    color: var(--terminal-green);
+}
+
+.featured-commit-msg {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
+}
+
+.featured-commit-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+/* Fallback for the responsive layout */
+@media (max-width: 900px) {
+    .featured-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .featured-right {
+        border-left: none;
+        border-top: 1px dashed var(--border-color);
+        padding-left: 0;
+        padding-top: 30px;
+    }
+}
+
+
+/* Hover-glow wrapper for cards */
+.card-wrapper {
+    position: relative;
+    background-color: var(--border-color);
+    padding: 1px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.card-content {
+    padding: 28px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: var(--card-bg);
+    transition: background-color 0.3s;
+}
+
+/* Gemini border glow on hover */
+.card-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gemini-gradient);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.card-wrapper:hover::before {
+    opacity: 1;
+}
+
+.card-wrapper:hover .card-content {
+    background-color: var(--card-bg-hover);
+}
+
+.card-wrapper:hover {
+    box-shadow: 0 10px 30px -15px rgba(66, 133, 244, 0.25);
+    z-index: 2;
+}
+
+.project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-title span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    border: 1px solid var(--border-color);
+    padding: 2px 8px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.project-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Repository Stars, Forks, Branch metadata styling */
+.repo-meta {
+    display: flex;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 15px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.meta-item i {
+    color: var(--terminal-green); /* Tech cyan tone */
+    opacity: 0.85;
+}
+
+/* Latest commit notification widget style */
+.commit-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border-top: 1px dashed rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.commit-status i {
+    font-size: 0.7rem;
+    opacity: 0.6;
+}
+
+.commit-msg {
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 170px;
+}
+
+.commit-date {
+    margin-left: auto;
+    font-size: 0.7rem;
+    opacity: 0.6;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 3px 8px;
+    border: 1px solid var(--border-color);
+}
+
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    padding: 6px 14px;
+    transition: all 0.3s;
+}
+
+/* Gemini styled pill button on hover */
+.card-wrapper:hover .project-link {
+    background: var(--gemini-gradient);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(155, 81, 224, 0.3);
+}
+
+/* --- Skills and Profile Sections --- */
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.skill-category h4 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-item {
+    font-size: 0.85rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    color: var(--text-secondary);
+}
+
+.profile-about {
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.profile-about p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+/* Contact Links grid */
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+}
+
+.social-link {
+    background-color: var(--card-bg);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    transition: background-color 0.3s;
+}
+
+.social-link:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--terminal-green);
+}
+
+/* --- Footer --- */
+footer {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--text-primary);
+}
+
+/* --- Responsive CSS --- */
+@media (max-width: 900px) {
+    .grid-span-8, .grid-span-4, .grid-span-6 {
+        grid-column: span 12;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}

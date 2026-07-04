@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akudamatata | Fullstack Engineer Portfolio</title>
+    <meta name="description" content="Akudamatata 的个人主页，融合了 X.AI 的冷峻极简与 Gemini 的流动极光风格，展示全栈开发与开源项目成果。">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Gemini Aurora Backdrop -->
+    <div class="aurora-bg">
+        <div class="aurora-glow aurora-1"></div>
+        <div class="aurora-glow aurora-2"></div>
+        <div class="aurora-glow aurora-3"></div>
+    </div>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <h1>Akudamatata</h1>
+                <p>Fullstack Engineer / AI Agent & Web App Explorer</p>
+            </div>
+            <div class="header-right">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>ACTIVE / BUILDING</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile & Terminal grid -->
+        <div class="grid-layout">
+            
+            <!-- Terminal Panel -->
+            <div class="panel grid-span-8 terminal-panel">
+                <div class="panel-header">
+                    <span class="panel-title">Interactive Developer Terminal v1.0.0</span>
+                    <div class="terminal-header-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <div class="terminal-output" id="terminal-output">Welcome to Akudamatata's console.
+Type 'help' to see list of available commands.
+
+Akudamatata@github.io:~$ </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">Akudamatata@github.io:~$</span>
+                        <div class="terminal-input-wrapper">
+                            <input type="text" id="terminal-input" class="terminal-input" autofocus autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Panel -->
+            <div class="panel grid-span-4 profile-about">
+                <div class="panel-header">
+                    <span class="panel-title">profile.json</span>
+                </div>
+                <p>你好，我是 <strong>Akudamatata</strong>。一名活跃于全栈开发、AI Agent 开发与实用系统构建的软件工程师。</p>
+                <p>我热衷于探索如何利用大模型解决日常效率问题，同时致力于开发能改善用户体验的高质感 Web 应用。</p>
+                <p>在左侧终端键入命令（如 <code>repos</code>、<code>skills</code>），或者在下方浏览我精选的开源项目仓库。</p>
+            </div>
+
+        </div>
+
+        <!-- Projects Panel -->
+        <div>
+            <div class="projects-header" style="margin-bottom: 20px;">
+                <h2>精选开源项目</h2>
+            </div>
+            
+            <!-- Solara C 位大卡片 -->
+            <div id="featured-project-container" style="margin-bottom: 24px;">
+                <!-- Solara featured card will be injected here -->
+            </div>
+
+            <!-- 剩下三个子项目一行展示 -->
+            <div class="projects-grid-3" id="normal-projects-grid">
+                <!-- Rest 3 cards will be injected here -->
+            </div>
+        </div>
+
+        <!-- Skills & Contact grid -->
+        <div class="grid-layout">
+            
+            <!-- Technical Stack -->
+            <div class="panel grid-span-6">
+                <div class="panel-header">
+                    <span class="panel-title">skills_stack.yml</span>
+                </div>
+                <div class="skills-list">
+                    <div class="skill-category">
+                        <h4>Frontend</h4>
+                        <div class="skill-items">
+                            <span class="skill-item">HTML5 / CSS3</span>
+                            <span class="skill-item">JavaScript (ES6+)</span>
+                            <span class="skill-item">TypeScript</span>
+                            <span class="skill-item">Vue.js / React</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Backend & Cloud</h4>
+                        <div class="skill-items">
+                            <span class="skill-item">Node.js</span>
+                            <span class="skill-item">Go / Python</span>
+                            <span class="skill-item">Cloudflare Workers</span>
+                            <span class="skill-item">Serverless APIs</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Tools & Platforms</h4>
+                        <div class="skill-items">
+                            <span class="skill-item">Git / GitHub Actions</span>
+                            <span class="skill-item">Docker</span>
+                            <span class="skill-item">Shadowrocket MITM</span>
+                            <span class="skill-item">gh cli</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Specialties</h4>
+                        <div class="skill-items">
+                            <span class="skill-item">Web Spoofer</span>
+                            <span class="skill-item">Desktop Apps (Pake)</span>
+                            <span class="skill-item">Automation Scripts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links & Contacts -->
+            <div class="panel grid-span-6" style="padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="panel-header" style="margin: 24px 24px 0 24px;">
+                    <span class="panel-title">networks_mesh.json</span>
+                </div>
+                <div class="social-links" style="flex-grow: 1; margin-top: 20px;">
+                    <a href="https://github.com/akudamatata" target="_blank" class="social-link">
+                        <i class="fab fa-github fa-lg"></i>
+                        <span>GitHub @Akudamatata</span>
+                    </a>
+                    <a href="mailto:your-email@example.com" class="social-link">
+                        <i class="fas fa-envelope fa-lg"></i>
+                        <span>Email Contact</span>
+                    </a>
+                    <a href="https://github.com/akudamatata/Solara" target="_blank" class="social-link">
+                        <i class="fas fa-music fa-lg"></i>
+                        <span>Solara Music Player</span>
+                    </a>
+                    <a href="https://github.com/akudamatata/ios-location-spoofer-web" target="_blank" class="social-link">
+                        <i class="fas fa-map-marker-alt fa-lg"></i>
+                        <span>iOS Location Spoofer</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <span>&copy; 2026 Akudamatata. Designed with X.AI Grid + Gemini Flow aesthetics.</span>
+            <span>
+                <a href="https://github.com/akudamatata" target="_blank">GitHub Profile</a>
+                &middot;
+                <a href="#terminal-input">Back to Terminal</a>
+            </span>
+        </footer>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
