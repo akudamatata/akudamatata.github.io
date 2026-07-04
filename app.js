@@ -246,7 +246,7 @@ let historyIndex = -1;
 
 const commandDescriptions = {
     "help": "Show lists of available commands.",
-    "about": "Get details about Akudamatata.",
+    "about": "Get details about Wet Dream Boy (梦遗少年).",
     "repos": "List of my featured repositories with metrics.",
     "skills": "List my coding skills & development environments.",
     "clear": "Clear the terminal screen."
@@ -281,7 +281,7 @@ terminalInput.addEventListener('keydown', (e) => {
 
 function appendToTerminal(text, isCommand = false) {
     if (isCommand) {
-        terminalOutput.innerHTML += `<span class="terminal-prompt">Akudamatata@github.io:~$</span> ${text}\n`;
+        terminalOutput.innerHTML += `<span class="terminal-prompt">WetDreamBoy@github.io:~$</span> ${text}\n`;
     } else {
         terminalOutput.innerHTML += `${text}\n`;
     }
@@ -309,6 +309,7 @@ function executeCommand(rawCommand) {
             
         case 'about':
             appendToTerminal(
+                `Wet Dream Boy (梦遗少年) - 一个被梦遗弃的少年。\n` +
                 `Fullstack developer with a passion for building robust & elegant web tools.\n` +
                 `Focus areas: Web App Spoofer panels, Serverless computing, Automation scripts.\n` +
                 `Core philosophy: "Make complex setups simple and beautifully accessible."`
@@ -337,7 +338,7 @@ function executeCommand(rawCommand) {
             break;
             
         case 'clear':
-            terminalOutput.innerHTML = `Welcome to Akudamatata's console.\nType 'help' to see list of available commands.\n\nAkudamatata@github.io:~$ `;
+            terminalOutput.innerHTML = `Welcome to Wet Dream Boy's console.\nType 'help' to see list of available commands.\n\nWetDreamBoy@github.io:~$ `;
             break;
             
         default:
